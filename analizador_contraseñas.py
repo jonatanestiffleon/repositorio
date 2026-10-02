@@ -37,11 +37,11 @@ def esta_en_lista_negra(contrasena, lista_negra):
 def clasificar_fortaleza(puntaje):
     """Traduce el puntaje numerico a una categoria legible."""
     if puntaje <= 2:
-        return "Debil"
+        return "contraseña Debil"
     elif puntaje <= 4:
-        return "Moderada"
+        return "contraseña moderada"
     else:
-        return "Fuerte"
+        return "contraseña Fuerte"
 
 
 def main():
