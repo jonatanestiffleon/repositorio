@@ -10,9 +10,15 @@ en una lista de contrasenas filtradas/comunes (uso defensivo y educativo).
 
 import re
 
+
 # Lista negra simple de contrasenas comunes (fines educativos)
 CONTRASENAS_COMUNES = [
-    "123456", "password", "qwerty", "abc123", "admin123", "12345678",
+    "123456",
+    "password",
+    "qwerty",
+    "abc123",
+    "admin123",
+    "12345678",
 ]
 
 
@@ -23,9 +29,15 @@ def calcular_puntaje(contrasena):
         "mayuscula": bool(re.search(r"[A-Z]", contrasena)),
         "minuscula": bool(re.search(r"[a-z]", contrasena)),
         "numero": bool(re.search(r"[0-9]", contrasena)),
-        "especial": bool(re.search(r"[!@#$%^&*(),.?\":{}|<>]", contrasena)),
+        "especial": bool(
+            re.search(r"[!@#$%^&*(),.?\":{}|<>]", contrasena)
+        ),
     }
-    puntaje = sum(1 for cumple in criterios.values() if cumple)
+
+    puntaje = sum(
+        1 for cumple in criterios.values() if cumple
+    )
+
     return puntaje, criterios
 
 
@@ -37,11 +49,11 @@ def esta_en_lista_negra(contrasena, lista_negra):
 def clasificar_fortaleza(puntaje):
     """Traduce el puntaje numerico a una categoria legible."""
     if puntaje <= 1:
-        return "Debil"
+        return "Contraseña Debil"
     elif puntaje <= 3:
-        return "Moderada"
+        return "Contraseña Moderada"
     else:
-        return "Fuerte"
+        return "Contraseña Fuerte"
 
 
 def main():
@@ -56,15 +68,28 @@ def main():
 
     for contrasena in contrasenas_prueba:
         puntaje, criterios = calcular_puntaje(contrasena)
+
         fortaleza = clasificar_fortaleza(puntaje)
-        en_lista_negra = esta_en_lista_negra(contrasena, CONTRASENAS_COMUNES)
+
+        en_lista_negra = esta_en_lista_negra(
+            contrasena,
+            CONTRASENAS_COMUNES
+        )
 
         print(f"Contrasena: {contrasena}")
-        print(f"  Puntaje: {puntaje}/5  ->  Fortaleza: {fortaleza}")
+        print(
+            f"  Puntaje: {puntaje}/5  ->  Fortaleza: {fortaleza}"
+        )
+
         if en_lista_negra:
-            print("  ALERTA: la contrasena aparece en la lista de filtraciones comunes")
+            print(
+                "  ALERTA: la contrasena aparece "
+                "en la lista de filtraciones comunes"
+            )
+
         print("-" * 50)
 
 
 if __name__ == "__main__":
     main()
+    
